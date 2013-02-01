@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+
+	Copyright (c) 2013 mgm technology partners GmbH
+	
+	Licensed under the Apache License, Version 2.0 (the "License");
+	you may not use this file except in compliance with the License.
+	You may obtain a copy of the License at
+	
+	    http://www.apache.org/licenses/LICENSE-2.0
+	
+	Unless required by applicable law or agreed to in writing, software
+	distributed under the License is distributed on an "AS IS" BASIS,
+	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+	See the License for the specific language governing permissions and
+	limitations under the License.
+
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.sonatype.oss</groupId>
+		<artifactId>oss-parent</artifactId>
+		<version>7</version>
+	</parent>
+	<groupId>com.mgmtp.maven.resources</groupId>
+	<artifactId>mgm-oss-jar-resource-bundle</artifactId>
+	<version>1-SNAPSHOT</version>
+	<packaging>jar</packaging>
+
+	<name>mgm Open Source Resource Bundle</name>
+	<description>mgm Open Source Resource Bundle</description>
+
+	<url>https://github.com/mgm-tp/mgm-oss-jar-resource-bundle</url>
+
+	<scm>
+		<connection>scm:git:git://github.com/mgm-tp/mgm-oss-jar-resource-bundle.git</connection>
+		<developerConnection>scm:git:ssh://git@github.com/mgm-tp/mgm-oss-jar-resource-bundle.git</developerConnection>
+		<url>https://github.com/mgm-tp/mgm-oss-jar-resource-bundle</url>
+		<tag>HEAD</tag>
+	</scm>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-resources-plugin</artifactId>
+					<version>2.6</version>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>buildnumber-maven-plugin</artifactId>
+				<version>1.2</version>
+				<configuration>
+					<buildNumberPropertyName>revision</buildNumberPropertyName>
+					<timestampPropertyName>timestamp</timestampPropertyName>
+					<timestampFormat>{0,date,yyyyMMdd-HHmm}</timestampFormat>
+					<getRevisionOnlyOnce>true</getRevisionOnlyOnce>
+				</configuration>
+				<executions>
+					<execution>
+						<id>create-build-metadata</id>
+						<phase>validate</phase>
+						<goals>
+							<goal>create</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-deploy-plugin</artifactId>
+				<version>2.7</version>
+				<configuration>
+					<updateReleaseInfo>true</updateReleaseInfo>
+					<retryFailedDeploymentCount>3</retryFailedDeploymentCount>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>2.4</version>
+				<configuration>
+					<archive>
+						<manifest>
+							<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+							<addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+						</manifest>
+						<manifestEntries>
+							<Implementation-Date>${timestamp}</Implementation-Date>
+							<Implementation-Revision>${revision}</Implementation-Revision>
+						</manifestEntries>
+					</archive>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-release-plugin</artifactId>
+				<version>2.4</version><!--$NO-MVN-MAN-VER$-->
+				<configuration>
+					<autoVersionSubmodules>true</autoVersionSubmodules>
+					<suppressCommitBeforeBranch>true</suppressCommitBeforeBranch>
+					<goals>deploy</goals>
+					<preparationGoals>verify</preparationGoals>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-remote-resources-plugin</artifactId>
+				<version>1.4</version>
+				<configuration>
+					<encoding>UTF-8</encoding>
+					<includes>
+						<include>META-INF/LICENSE.vm</include>
+						<include>META-INF/NOTICE.vm</include>
+						<include>META-INF/copyright_header.vm</include>
+					</includes>
+				</configuration>
+				<executions>
+					<execution>
+						<id>bundle-resources</id>
+						<goals>
+							<goal>bundle</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+	<profiles>
+		<profile>
+			<id>sonatype-oss-release</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-source-plugin</artifactId>
+						<version>2.2.1</version>
+						<configuration>
+							<skipSource>true</skipSource>
+						</configuration>
+						<executions>
+							<execution>
+								<id>attach-sources</id>
+								<goals>
+									<goal>jar-no-fork</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-javadoc-plugin</artifactId>
+						<version>2.9</version>
+						<configuration>
+							<skip>true</skip>
+						</configuration>
+						<executions>
+							<execution>
+								<id>attach-javadocs</id>
+								<goals>
+									<goal>jar</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+</project>
