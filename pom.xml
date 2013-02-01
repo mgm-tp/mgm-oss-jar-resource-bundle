@@ -25,7 +25,7 @@
 	</parent>
 	<groupId>com.mgmtp.maven.resources</groupId>
 	<artifactId>mgm-oss-jar-resource-bundle</artifactId>
-	<version>1-SNAPSHOT</version>
+	<version>1</version>
 	<packaging>jar</packaging>
 
 	<name>mgm Open Source Resource Bundle</name>
@@ -37,7 +37,7 @@
 		<connection>scm:git:git://github.com/mgm-tp/mgm-oss-jar-resource-bundle.git</connection>
 		<developerConnection>scm:git:ssh://git@github.com/mgm-tp/mgm-oss-jar-resource-bundle.git</developerConnection>
 		<url>https://github.com/mgm-tp/mgm-oss-jar-resource-bundle</url>
-		<tag>HEAD</tag>
+		<tag>mgm-oss-jar-resource-bundle-1</tag>
 	</scm>
 
 	<build>
