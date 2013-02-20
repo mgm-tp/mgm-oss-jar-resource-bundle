@@ -10,11 +10,12 @@ Copyright ${projectTimespan} $project.organization.name
 #foreach ($organization in $projectsSortedByOrganization.keySet())
 #if ($organization.name != $project.organization.name)
 From: '$organization.name'#if($organization.url) ($organization.url)#end
+
 #foreach ($project in $projectsSortedByOrganization.get($organization))
   - $project.name #if ($project.url)($project.url)#end $project.artifact
 #foreach ($license in $project.licenses)
-    License: $license.name #if ($license.url) ($license.url)
-#end
+    License: $license.name #if ($license.url) ($license.url)#end
+
 #end
 #end
 #end
