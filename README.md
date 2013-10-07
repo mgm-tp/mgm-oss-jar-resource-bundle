@@ -15,3 +15,7 @@ http://www.apache.org/licenses/LICENSE-2.0
 
 [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/mgm-tp/mgm-oss-jar-resource-bundle/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/mgm-tp/mgm-oss-jar-resource-bundle/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
